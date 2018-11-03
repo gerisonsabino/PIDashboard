@@ -1,0 +1,112 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="PIDashboard.SiteMaster" %>
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Projeto Interdisciplinar">
+
+    <title><%: Page.Title %> | E-commerce Dashboard</title>
+
+    <link href="Assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> 
+    <link href="Assets/metisMenu/metisMenu.min.css" rel="stylesheet" type="text/css" /> 
+    <link href="Assets/sb-admin-2/css/sb-admin-2.css" rel="stylesheet" type="text/css" />
+    <link href="Assets/morrisjs/morris.css" rel="stylesheet" type="text/css" />
+    <link href="Assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form runat="server">
+        <div id="wrapper">
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/Default">
+                        <i class="fa fa-lemon-o"></i>
+                        Dashboard | E-commerce
+                    </a>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-user fa-fw"></i> 
+                                    Usuário
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="login.html">
+                                    <i class="fa fa-sign-out fa-fw"></i> Sair
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <a href="/Inicio/">
+                                    <i class="fa fa-home"></i>
+                                    Início
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-cube"></i> Produtos<span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#">Lista de Produtos</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Cadastrar Produto</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-shield"></i> Usuários<span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#">Lista de Usuários</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Cadastrar Usuário</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div id="page-wrapper">
+                <asp:ContentPlaceHolder id="MainContent" runat="server"></asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference Path="~/Assets/jquery/jquery.min.js" />
+                <asp:ScriptReference Path="~/Assets/bootstrap/js/bootstrap.min.js" />
+                <asp:ScriptReference Path="~/Assets/metisMenu/metisMenu.min.js" />
+                <asp:ScriptReference Path="~/Assets/raphael/raphael.min.js" />
+                <asp:ScriptReference Path="~/Assets/morrisjs/morris.min.js" />
+                <asp:ScriptReference Path="~/Assets/data/morris-data.js" />
+                <asp:ScriptReference Path="~/Assets/sb-admin-2/js/sb-admin-2.min.js" />
+            </Scripts>
+        </asp:ScriptManager>
+    </form>
+</body>
+</html>
