@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="pi_ecommerceModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="pi_ecommerceModelStoreContainer">
+          <EntitySet Name="game" EntityType="pi_ecommerceModel.Store.game" store:Type="Tables" Schema="pi_ecommerce" />
+          <EntitySet Name="game_desenvolvedor" EntityType="pi_ecommerceModel.Store.game_desenvolvedor" store:Type="Tables" Schema="pi_ecommerce" />
+          <EntitySet Name="game_genero" EntityType="pi_ecommerceModel.Store.game_genero" store:Type="Tables" Schema="pi_ecommerce" />
+          <EntitySet Name="game_plataforma" EntityType="pi_ecommerceModel.Store.game_plataforma" store:Type="Tables" Schema="pi_ecommerce" />
+          <EntitySet Name="usuario" EntityType="pi_ecommerceModel.Store.usuario" store:Type="Tables" Schema="pi_ecommerce" />
+          <EntitySet Name="usuario_tipo" EntityType="pi_ecommerceModel.Store.usuario_tipo" store:Type="Tables" Schema="pi_ecommerce" />
+          <AssociationSet Name="FK_game_desenvolvedor" Association="pi_ecommerceModel.Store.FK_game_desenvolvedor">
+            <End Role="game_desenvolvedor" EntitySet="game_desenvolvedor" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_genero" Association="pi_ecommerceModel.Store.FK_game_genero">
+            <End Role="game_genero" EntitySet="game_genero" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_plataforma" Association="pi_ecommerceModel.Store.FK_game_plataforma">
+            <End Role="game_plataforma" EntitySet="game_plataforma" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_usuario" Association="pi_ecommerceModel.Store.FK_game_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_tipo" Association="pi_ecommerceModel.Store.FK_usuario_tipo">
+            <End Role="usuario_tipo" EntitySet="usuario_tipo" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="game">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IDDesenvolvedor" />
+            <PropertyRef Name="IDGenero" />
+            <PropertyRef Name="IDPlataforma" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="Preco" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Lancamento" Type="datetime" Nullable="false" />
+          <Property Name="Descricao" Type="text" Nullable="false" />
+          <Property Name="ImagemURL" Type="varchar" Nullable="false" MaxLength="300" />
+          <Property Name="IDDesenvolvedor" Type="int" Nullable="false" />
+          <Property Name="IDGenero" Type="int" Nullable="false" />
+          <Property Name="IDPlataforma" Type="int" Nullable="false" />
+          <Property Name="IDUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="game_desenvolvedor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="75" />
+        </EntityType>
+        <EntityType Name="game_genero">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="game_plataforma">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="Nome" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="Senha" Type="varchar" Nullable="false" MaxLength="35" />
+          <Property Name="Tipo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario_tipo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <Association Name="FK_game_desenvolvedor">
+          <End Role="game_desenvolvedor" Type="pi_ecommerceModel.Store.game_desenvolvedor" Multiplicity="1" />
+          <End Role="game" Type="pi_ecommerceModel.Store.game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game_desenvolvedor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="IDDesenvolvedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_genero">
+          <End Role="game_genero" Type="pi_ecommerceModel.Store.game_genero" Multiplicity="1" />
+          <End Role="game" Type="pi_ecommerceModel.Store.game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game_genero">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="IDGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_plataforma">
+          <End Role="game_plataforma" Type="pi_ecommerceModel.Store.game_plataforma" Multiplicity="1" />
+          <End Role="game" Type="pi_ecommerceModel.Store.game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game_plataforma">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="IDPlataforma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_usuario">
+          <End Role="usuario" Type="pi_ecommerceModel.Store.usuario" Multiplicity="1" />
+          <End Role="game" Type="pi_ecommerceModel.Store.game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuario_tipo">
+          <End Role="usuario_tipo" Type="pi_ecommerceModel.Store.usuario_tipo" Multiplicity="1" />
+          <End Role="usuario" Type="pi_ecommerceModel.Store.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario_tipo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pi_ecommerceModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="pi_ecommerceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="game" EntityType="pi_ecommerceModel.game" />
+          <EntitySet Name="game_desenvolvedor" EntityType="pi_ecommerceModel.game_desenvolvedor" />
+          <EntitySet Name="game_genero" EntityType="pi_ecommerceModel.game_genero" />
+          <EntitySet Name="game_plataforma" EntityType="pi_ecommerceModel.game_plataforma" />
+          <EntitySet Name="usuario" EntityType="pi_ecommerceModel.usuario" />
+          <EntitySet Name="usuario_tipo" EntityType="pi_ecommerceModel.usuario_tipo" />
+          <AssociationSet Name="FK_game_desenvolvedor" Association="pi_ecommerceModel.FK_game_desenvolvedor">
+            <End Role="game_desenvolvedor" EntitySet="game_desenvolvedor" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_genero" Association="pi_ecommerceModel.FK_game_genero">
+            <End Role="game_genero" EntitySet="game_genero" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_plataforma" Association="pi_ecommerceModel.FK_game_plataforma">
+            <End Role="game_plataforma" EntitySet="game_plataforma" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_tipo" Association="pi_ecommerceModel.FK_usuario_tipo">
+            <End Role="usuario_tipo" EntitySet="usuario_tipo" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_game_usuario" Association="pi_ecommerceModel.FK_game_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="game" EntitySet="game" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="game">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IDDesenvolvedor" />
+            <PropertyRef Name="IDGenero" />
+            <PropertyRef Name="IDPlataforma" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="Preco" Type="Decimal" Nullable="false" />
+          <Property Name="Lancamento" Type="DateTime" Nullable="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="ImagemURL" Type="String" Nullable="false" MaxLength="300" Unicode="false" FixedLength="false" />
+          <Property Name="IDDesenvolvedor" Type="Int32" Nullable="false" />
+          <Property Name="IDGenero" Type="Int32" Nullable="false" />
+          <Property Name="IDPlataforma" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="game_desenvolvedor" Relationship="pi_ecommerceModel.FK_game_desenvolvedor" FromRole="game" ToRole="game_desenvolvedor" />
+          <NavigationProperty Name="game_genero" Relationship="pi_ecommerceModel.FK_game_genero" FromRole="game" ToRole="game_genero" />
+          <NavigationProperty Name="game_plataforma" Relationship="pi_ecommerceModel.FK_game_plataforma" FromRole="game" ToRole="game_plataforma" />
+          <Property Type="Int32" Name="IDUsuario" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="pi_ecommerceModel.FK_game_usuario" FromRole="game" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="game_desenvolvedor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="75" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="game" Relationship="pi_ecommerceModel.FK_game_desenvolvedor" FromRole="game_desenvolvedor" ToRole="game" />
+        </EntityType>
+        <EntityType Name="game_genero">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="game" Relationship="pi_ecommerceModel.FK_game_genero" FromRole="game_genero" ToRole="game" />
+        </EntityType>
+        <EntityType Name="game_plataforma">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="game" Relationship="pi_ecommerceModel.FK_game_plataforma" FromRole="game_plataforma" ToRole="game" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Senha" Type="String" Nullable="false" MaxLength="35" Unicode="false" FixedLength="false" />
+          <Property Name="Tipo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuario_tipo" Relationship="pi_ecommerceModel.FK_usuario_tipo" FromRole="usuario" ToRole="usuario_tipo" />
+          <NavigationProperty Name="game" Relationship="pi_ecommerceModel.FK_game_usuario" FromRole="usuario" ToRole="game" />
+        </EntityType>
+        <EntityType Name="usuario_tipo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="usuario" Relationship="pi_ecommerceModel.FK_usuario_tipo" FromRole="usuario_tipo" ToRole="usuario" />
+        </EntityType>
+        <Association Name="FK_game_desenvolvedor">
+          <End Role="game_desenvolvedor" Type="pi_ecommerceModel.game_desenvolvedor" Multiplicity="1" />
+          <End Role="game" Type="pi_ecommerceModel.game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game_desenvolvedor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="IDDesenvolvedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_genero">
+          <End Role="game_genero" Type="pi_ecommerceModel.game_genero" Multiplicity="1" />
+          <End Role="game" Type="pi_ecommerceModel.game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game_genero">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="IDGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_plataforma">
+          <End Role="game_plataforma" Type="pi_ecommerceModel.game_plataforma" Multiplicity="1" />
+          <End Role="game" Type="pi_ecommerceModel.game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game_plataforma">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="IDPlataforma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuario_tipo">
+          <End Role="usuario_tipo" Type="pi_ecommerceModel.usuario_tipo" Multiplicity="1" />
+          <End Role="usuario" Type="pi_ecommerceModel.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario_tipo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_game_usuario">
+          <End Type="pi_ecommerceModel.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="pi_ecommerceModel.game" Role="game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="pi_ecommerceModelStoreContainer" CdmEntityContainer="pi_ecommerceEntities">
+          <EntitySetMapping Name="game">
+            <EntityTypeMapping TypeName="pi_ecommerceModel.game">
+              <MappingFragment StoreEntitySet="game">
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+                <ScalarProperty Name="Lancamento" ColumnName="Lancamento" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="ImagemURL" ColumnName="ImagemURL" />
+                <ScalarProperty Name="IDDesenvolvedor" ColumnName="IDDesenvolvedor" />
+                <ScalarProperty Name="IDGenero" ColumnName="IDGenero" />
+                <ScalarProperty Name="IDPlataforma" ColumnName="IDPlataforma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="game_desenvolvedor">
+            <EntityTypeMapping TypeName="pi_ecommerceModel.game_desenvolvedor">
+              <MappingFragment StoreEntitySet="game_desenvolvedor">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="game_genero">
+            <EntityTypeMapping TypeName="pi_ecommerceModel.game_genero">
+              <MappingFragment StoreEntitySet="game_genero">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="game_plataforma">
+            <EntityTypeMapping TypeName="pi_ecommerceModel.game_plataforma">
+              <MappingFragment StoreEntitySet="game_plataforma">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="pi_ecommerceModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario_tipo">
+            <EntityTypeMapping TypeName="pi_ecommerceModel.usuario_tipo">
+              <MappingFragment StoreEntitySet="usuario_tipo">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="PIEcommerce">
+        <EntityTypeShape EntityType="pi_ecommerceModel.game" Width="1.5" PointX="3" PointY="1" Height="3.3263964843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="pi_ecommerceModel.game_desenvolvedor" Width="1.5" PointX="0.75" PointY="1.875" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="pi_ecommerceModel.game_genero" Width="1.5" PointX="4.75" PointY="5.75" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="pi_ecommerceModel.game_plataforma" Width="1.5" PointX="2.25" PointY="5.75" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="pi_ecommerceModel.usuario" Width="1.5" PointX="5.5" PointY="1" Height="2.3648893229166661" IsExpanded="true" />
+        <EntityTypeShape EntityType="pi_ecommerceModel.usuario_tipo" Width="1.5" PointX="7.75" PointY="1.375" Height="1.5956835937499996" IsExpanded="true" />
+        <AssociationConnector Association="pi_ecommerceModel.FK_game_desenvolvedor" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.672841796875" />
+          <ConnectorPoint PointX="3" PointY="2.672841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="pi_ecommerceModel.FK_game_genero" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.09375" PointY="5.75" />
+          <ConnectorPoint PointX="5.09375" PointY="4.0691943359375" />
+          <ConnectorPoint PointX="4.5" PointY="4.0691943359375" />
+        </AssociationConnector>
+        <AssociationConnector Association="pi_ecommerceModel.FK_game_plataforma" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.375" PointY="5.75" />
+          <ConnectorPoint PointX="3.375" PointY="4.7109993489583326" />
+        </AssociationConnector>
+        <AssociationConnector Association="pi_ecommerceModel.FK_usuario_tipo" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.75" PointY="2.172841796875" />
+          <ConnectorPoint PointX="7" PointY="2.172841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="pi_ecommerceModel.FK_game_usuario" >
+          <ConnectorPoint PointX="5.5" PointY="2.1824446614583328" />
+          <ConnectorPoint PointX="4.5" PointY="2.1824446614583328" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,27 @@
+﻿#page-wrapper {
+    padding: 20px;
+}
+
+/*LISTA DE PRODUTOS*/
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    border: 1px solid #DDD !important;
+}
+
+.table > tbody tr td a {
+    color: #0C6DCE;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.table > tbody tr td a span {
+    font-size: 12px;
+}
+/*LISTA DE PRODUTOS*/
+
+/*PRODUTO*/
+#MainContent_imgCapa {
+    border: 1px solid #CCC;
+}
+/*PRODUTO*/

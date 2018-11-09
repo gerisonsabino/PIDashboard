@@ -7,11 +7,12 @@ using System.Web.UI.WebControls;
 
 namespace PIDashboard
 {
-    public partial class _Default : System.Web.UI.Page
+    public partial class Sair : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Session.Abandon();
+            Response.Redirect("Login.aspx");
         }
     }
 }

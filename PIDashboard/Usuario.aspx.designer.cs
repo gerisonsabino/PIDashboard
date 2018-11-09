@@ -10,25 +10,52 @@
 namespace PIDashboard {
     
     
-    public partial class Login {
+    public partial class Usuario {
         
         /// <summary>
-        /// Form1 control.
+        /// hidID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm Form1;
+        protected global::System.Web.UI.WebControls.HiddenField hidID;
         
         /// <summary>
-        /// txtUsuario control.
+        /// txtNome control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
+        protected global::System.Web.UI.WebControls.TextBox txtNome;
+        
+        /// <summary>
+        /// txtUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUsername;
+        
+        /// <summary>
+        /// dpdTipoUsuario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList dpdTipoUsuario;
+        
+        /// <summary>
+        /// TipoUsuarioDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource TipoUsuarioDataSource;
         
         /// <summary>
         /// txtSenha control.
@@ -49,21 +76,21 @@ namespace PIDashboard {
         protected global::System.Web.UI.WebControls.Label lblErro;
         
         /// <summary>
-        /// btnEntrar control.
+        /// lblSucesso control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEntrar;
+        protected global::System.Web.UI.WebControls.Label lblSucesso;
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// btnSalvar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.WebControls.Button btnSalvar;
     }
 }
