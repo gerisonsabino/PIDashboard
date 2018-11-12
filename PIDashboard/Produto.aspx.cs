@@ -50,6 +50,9 @@ namespace PIDashboard
 
         protected void btnSalvar_Click(object sender, EventArgs e)
         {
+            lblErro.Text = string.Empty;
+            lblSucesso.Text = string.Empty;
+
             if (this.ValidarForm())
             {
                 try
@@ -132,6 +135,7 @@ namespace PIDashboard
             }
             catch
             {
+                txtPreco.Text = string.Empty;
                 txtPreco.BorderColor = Color.Red;
                 b = false;
             }

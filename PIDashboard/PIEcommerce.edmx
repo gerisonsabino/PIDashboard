@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="pi_ecommerceModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="pi_ecommerceModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="pi_ecommerceModelStoreContainer">
           <EntitySet Name="game" EntityType="pi_ecommerceModel.Store.game" store:Type="Tables" Schema="pi_ecommerce" />
           <EntitySet Name="game_desenvolvedor" EntityType="pi_ecommerceModel.Store.game_desenvolvedor" store:Type="Tables" Schema="pi_ecommerce" />
@@ -36,9 +36,6 @@
         <EntityType Name="game">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="IDDesenvolvedor" />
-            <PropertyRef Name="IDGenero" />
-            <PropertyRef Name="IDPlataforma" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Titulo" Type="varchar" Nullable="false" MaxLength="45" />
@@ -149,7 +146,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pi_ecommerceModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -172,21 +170,18 @@
             <End Role="game_plataforma" EntitySet="game_plataforma" />
             <End Role="game" EntitySet="game" />
           </AssociationSet>
-          <AssociationSet Name="FK_usuario_tipo" Association="pi_ecommerceModel.FK_usuario_tipo">
-            <End Role="usuario_tipo" EntitySet="usuario_tipo" />
-            <End Role="usuario" EntitySet="usuario" />
-          </AssociationSet>
           <AssociationSet Name="FK_game_usuario" Association="pi_ecommerceModel.FK_game_usuario">
             <End Role="usuario" EntitySet="usuario" />
             <End Role="game" EntitySet="game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_tipo" Association="pi_ecommerceModel.FK_usuario_tipo">
+            <End Role="usuario_tipo" EntitySet="usuario_tipo" />
+            <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="game">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="IDDesenvolvedor" />
-            <PropertyRef Name="IDGenero" />
-            <PropertyRef Name="IDPlataforma" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Titulo" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
@@ -197,10 +192,10 @@
           <Property Name="IDDesenvolvedor" Type="Int32" Nullable="false" />
           <Property Name="IDGenero" Type="Int32" Nullable="false" />
           <Property Name="IDPlataforma" Type="Int32" Nullable="false" />
+          <Property Name="IDUsuario" Type="Int32" Nullable="false" />
           <NavigationProperty Name="game_desenvolvedor" Relationship="pi_ecommerceModel.FK_game_desenvolvedor" FromRole="game" ToRole="game_desenvolvedor" />
           <NavigationProperty Name="game_genero" Relationship="pi_ecommerceModel.FK_game_genero" FromRole="game" ToRole="game_genero" />
           <NavigationProperty Name="game_plataforma" Relationship="pi_ecommerceModel.FK_game_plataforma" FromRole="game" ToRole="game_plataforma" />
-          <Property Type="Int32" Name="IDUsuario" Nullable="false" />
           <NavigationProperty Name="usuario" Relationship="pi_ecommerceModel.FK_game_usuario" FromRole="game" ToRole="usuario" />
         </EntityType>
         <EntityType Name="game_desenvolvedor">
@@ -236,8 +231,8 @@
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
           <Property Name="Senha" Type="String" Nullable="false" MaxLength="35" Unicode="false" FixedLength="false" />
           <Property Name="Tipo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="usuario_tipo" Relationship="pi_ecommerceModel.FK_usuario_tipo" FromRole="usuario" ToRole="usuario_tipo" />
           <NavigationProperty Name="game" Relationship="pi_ecommerceModel.FK_game_usuario" FromRole="usuario" ToRole="game" />
+          <NavigationProperty Name="usuario_tipo" Relationship="pi_ecommerceModel.FK_usuario_tipo" FromRole="usuario" ToRole="usuario_tipo" />
         </EntityType>
         <EntityType Name="usuario_tipo">
           <Key>
@@ -283,6 +278,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_game_usuario">
+          <End Role="usuario" Type="pi_ecommerceModel.usuario" Multiplicity="1" />
+          <End Role="game" Type="pi_ecommerceModel.game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_usuario_tipo">
           <End Role="usuario_tipo" Type="pi_ecommerceModel.usuario_tipo" Multiplicity="1" />
           <End Role="usuario" Type="pi_ecommerceModel.usuario" Multiplicity="*" />
@@ -295,18 +302,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_game_usuario">
-          <End Type="pi_ecommerceModel.usuario" Role="usuario" Multiplicity="1" />
-          <End Type="pi_ecommerceModel.game" Role="game" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usuario">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="game">
-              <PropertyRef Name="IDUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -316,7 +311,6 @@
           <EntitySetMapping Name="game">
             <EntityTypeMapping TypeName="pi_ecommerceModel.game">
               <MappingFragment StoreEntitySet="game">
-                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="Preco" ColumnName="Preco" />
@@ -326,6 +320,7 @@
                 <ScalarProperty Name="IDDesenvolvedor" ColumnName="IDDesenvolvedor" />
                 <ScalarProperty Name="IDGenero" ColumnName="IDGenero" />
                 <ScalarProperty Name="IDPlataforma" ColumnName="IDPlataforma" />
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -393,32 +388,36 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="PIEcommerce">
-        <EntityTypeShape EntityType="pi_ecommerceModel.game" Width="1.5" PointX="3" PointY="1" Height="3.3263964843749996" IsExpanded="true" />
-        <EntityTypeShape EntityType="pi_ecommerceModel.game_desenvolvedor" Width="1.5" PointX="0.75" PointY="1.875" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="pi_ecommerceModel.game_genero" Width="1.5" PointX="4.75" PointY="5.75" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="pi_ecommerceModel.game_plataforma" Width="1.5" PointX="2.25" PointY="5.75" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="pi_ecommerceModel.usuario" Width="1.5" PointX="5.5" PointY="1" Height="2.3648893229166661" IsExpanded="true" />
-        <EntityTypeShape EntityType="pi_ecommerceModel.usuario_tipo" Width="1.5" PointX="7.75" PointY="1.375" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="pi_ecommerceModel.game" Width="1.5" PointX="5.25" PointY="1" Height="3.7109993489583331" IsExpanded="true" />
+        <EntityTypeShape EntityType="pi_ecommerceModel.game_desenvolvedor" Width="1.5" PointX="3" PointY="5.25" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="pi_ecommerceModel.game_genero" Width="1.5" PointX="3" PointY="7.5" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="pi_ecommerceModel.game_plataforma" Width="1.5" PointX="3" PointY="9.875" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="pi_ecommerceModel.usuario" Width="1.5" PointX="3" PointY="1.625" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="pi_ecommerceModel.usuario_tipo" Width="1.5" PointX="0.75" PointY="2.125" Height="1.5956835937499996" IsExpanded="true" />
         <AssociationConnector Association="pi_ecommerceModel.FK_game_desenvolvedor" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.672841796875" />
-          <ConnectorPoint PointX="3" PointY="2.672841796875" />
+          <ConnectorPoint PointX="4.5" PointY="6.047841796875" />
+          <ConnectorPoint PointX="5.5104141666666671" PointY="6.0478417968749989" />
+          <ConnectorPoint PointX="5.6770808333333331" PointY="6.047841796875" />
+          <ConnectorPoint PointX="6" PointY="6.047841796875" />
+          <ConnectorPoint PointX="6" PointY="4.7109993489583335" />
         </AssociationConnector>
         <AssociationConnector Association="pi_ecommerceModel.FK_game_genero" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.09375" PointY="5.75" />
-          <ConnectorPoint PointX="5.09375" PointY="4.0691943359375" />
-          <ConnectorPoint PointX="4.5" PointY="4.0691943359375" />
+          <ConnectorPoint PointX="4.5" PointY="8.297841796875" />
+          <ConnectorPoint PointX="5.5937475" PointY="8.297841796875" />
+          <ConnectorPoint PointX="5.5937475" PointY="4.7109993489583335" />
         </AssociationConnector>
         <AssociationConnector Association="pi_ecommerceModel.FK_game_plataforma" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.375" PointY="5.75" />
-          <ConnectorPoint PointX="3.375" PointY="4.7109993489583326" />
+          <ConnectorPoint PointX="4.5" PointY="10.672841796875" />
+          <ConnectorPoint PointX="6.4062525" PointY="10.672841796875" />
+          <ConnectorPoint PointX="6.4062525" PointY="4.7109993489583335" />
+        </AssociationConnector>
+        <AssociationConnector Association="pi_ecommerceModel.FK_game_usuario" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.8074446614583328" />
+          <ConnectorPoint PointX="5.25" PointY="2.8074446614583328" />
         </AssociationConnector>
         <AssociationConnector Association="pi_ecommerceModel.FK_usuario_tipo" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.75" PointY="2.172841796875" />
-          <ConnectorPoint PointX="7" PointY="2.172841796875" />
-        </AssociationConnector>
-        <AssociationConnector Association="pi_ecommerceModel.FK_game_usuario" >
-          <ConnectorPoint PointX="5.5" PointY="2.1824446614583328" />
-          <ConnectorPoint PointX="4.5" PointY="2.1824446614583328" />
+          <ConnectorPoint PointX="2.25" PointY="2.922841796875" />
+          <ConnectorPoint PointX="3" PointY="2.922841796875" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

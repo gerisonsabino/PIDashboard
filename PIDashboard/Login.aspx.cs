@@ -18,22 +18,32 @@ namespace PIDashboard
         {
             if (ValidarForm())
             {
-                var db = new pi_ecommerceEntities();
-
-                var usuario = db.usuario.FirstOrDefault(x =>
-                    x.Username.Equals(txtUsuario.Text, StringComparison.CurrentCultureIgnoreCase) &&
-                    x.Senha.Equals(txtSenha.Text)
-                );
-
-                if (usuario != null)
+                try
                 {
-                    Session["Usuario"] = usuario;
-                    Response.Redirect("Default.aspx");
+                    using (pi_ecommerceEntities db = new pi_ecommerceEntities())
+                    {
+                        usuario usuario = new usuario();
+
+                        usuario = db.usuario.FirstOrDefault(x =>
+                            x.Username.Equals(txtUsuario.Text, StringComparison.CurrentCultureIgnoreCase) &&
+                            x.Senha.Equals(txtSenha.Text)
+                        );
+
+                        if (usuario != null)
+                        {
+                            Session["Usuario"] = usuario;
+                            Session["TipoUsuario"] = usuario.usuario_tipo;
+
+                            Session.Timeout = 60;
+                            Response.Redirect("Default.aspx");
+                        }
+                        else
+                        {
+                            lblErro.Text = "Nome de usuário incorreto ou senha inválida.";
+                        }
+                    }
                 }
-                else
-                {
-                    lblErro.Text = "Nome de usuário incorreto ou senha inválida.";
-                }
+                catch { }
             }
             else
             {

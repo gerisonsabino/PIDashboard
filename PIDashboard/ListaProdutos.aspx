@@ -17,7 +17,8 @@
                             SortExpression="Preco" />
                         <asp:BoundField DataField="Lancamento" DataFormatString="{0:d}" HeaderText="Lançamento" ReadOnly="True" 
                             SortExpression="Lancamento" />
-                        <asp:BoundField HeaderText="Opções" ReadOnly="True" />
+                        <asp:BoundField DataField="ID" HeaderText="Opções" ReadOnly="True" 
+                            SortExpression="ID" />
                     </Columns>
                 </asp:GridView>
                 <asp:EntityDataSource ID="ProdutosDataSource" runat="server" 
@@ -28,24 +29,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(function () {
-            var i = 0;
-            $("#MainContent_grdProdutos tbody tr").each(function () {
-                if (i == 0) {
-                    $("#MainContent_grdProdutos").prepend("<thead>");
-                    $("#MainContent_grdProdutos thead").append($(this));
-                }
-
-                var id = $($(this).find("td")[0]).text();
-                var td = $(this).find("td")[4];
-                
-                $(td).html("<a href='/Produto.aspx?id=" + id + "'><span class='fa fa-angle-right'></span> <span>Abrir</span></a>");
-
-                i++;
-            });
-
-            dataTable("#MainContent_grdProdutos");
-        });
-    </script>
+    <script src="Scripts/Views/lista-produtos.js" type="text/javascript"></script>
 </asp:Content>

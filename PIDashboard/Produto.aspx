@@ -72,7 +72,7 @@
                     <div class="form-group" id="preview-img">
                         <label>Pré-visualização da imagem</label>
                         <br />                 
-                        <asp:Image ID="imgCapa" Width="285" Height="380" runat="server" />
+                        <asp:Image ID="imgCapa" Width="285px" Height="380px" runat="server" />
                     </div>
                 </div>
             </div>
@@ -91,13 +91,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(function () {
-            $("#MainContent_txtImagemURL").change(function () {
-                $("#MainContent_imgCapa").attr("src", $(this).val());
-            });
-
-            $("#MainContent_txtLancamento").datepicker({ language: "pt-BR" });
-        }); 
-    </script>
+    <script src="Scripts/Views/produto.js" type="text/javascript"></script>
 </asp:Content>

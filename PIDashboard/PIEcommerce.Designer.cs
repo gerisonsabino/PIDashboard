@@ -22,8 +22,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("pi_ecommerceModel", "FK_game_desenvolvedor", "game_desenvolvedor", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PIDashboard.game_desenvolvedor), "game", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PIDashboard.game), true)]
 [assembly: EdmRelationshipAttribute("pi_ecommerceModel", "FK_game_genero", "game_genero", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PIDashboard.game_genero), "game", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PIDashboard.game), true)]
 [assembly: EdmRelationshipAttribute("pi_ecommerceModel", "FK_game_plataforma", "game_plataforma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PIDashboard.game_plataforma), "game", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PIDashboard.game), true)]
-[assembly: EdmRelationshipAttribute("pi_ecommerceModel", "FK_usuario_tipo", "usuario_tipo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PIDashboard.usuario_tipo), "usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PIDashboard.usuario), true)]
 [assembly: EdmRelationshipAttribute("pi_ecommerceModel", "FK_game_usuario", "usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PIDashboard.usuario), "game", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PIDashboard.game), true)]
+[assembly: EdmRelationshipAttribute("pi_ecommerceModel", "FK_usuario_tipo", "usuario_tipo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(PIDashboard.usuario_tipo), "usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(PIDashboard.usuario), true)]
 
 #endregion
 
@@ -424,7 +424,7 @@ namespace PIDashboard
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 IDDesenvolvedor
         {
@@ -434,14 +434,11 @@ namespace PIDashboard
             }
             set
             {
-                if (_IDDesenvolvedor != value)
-                {
-                    OnIDDesenvolvedorChanging(value);
-                    ReportPropertyChanging("IDDesenvolvedor");
-                    _IDDesenvolvedor = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("IDDesenvolvedor");
-                    OnIDDesenvolvedorChanged();
-                }
+                OnIDDesenvolvedorChanging(value);
+                ReportPropertyChanging("IDDesenvolvedor");
+                _IDDesenvolvedor = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IDDesenvolvedor");
+                OnIDDesenvolvedorChanged();
             }
         }
         private global::System.Int32 _IDDesenvolvedor;
@@ -451,7 +448,7 @@ namespace PIDashboard
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 IDGenero
         {
@@ -461,14 +458,11 @@ namespace PIDashboard
             }
             set
             {
-                if (_IDGenero != value)
-                {
-                    OnIDGeneroChanging(value);
-                    ReportPropertyChanging("IDGenero");
-                    _IDGenero = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("IDGenero");
-                    OnIDGeneroChanged();
-                }
+                OnIDGeneroChanging(value);
+                ReportPropertyChanging("IDGenero");
+                _IDGenero = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IDGenero");
+                OnIDGeneroChanged();
             }
         }
         private global::System.Int32 _IDGenero;
@@ -478,7 +472,7 @@ namespace PIDashboard
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 IDPlataforma
         {
@@ -488,14 +482,11 @@ namespace PIDashboard
             }
             set
             {
-                if (_IDPlataforma != value)
-                {
-                    OnIDPlataformaChanging(value);
-                    ReportPropertyChanging("IDPlataforma");
-                    _IDPlataforma = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("IDPlataforma");
-                    OnIDPlataformaChanged();
-                }
+                OnIDPlataformaChanging(value);
+                ReportPropertyChanging("IDPlataforma");
+                _IDPlataforma = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IDPlataforma");
+                OnIDPlataformaChanged();
             }
         }
         private global::System.Int32 _IDPlataforma;
@@ -1181,6 +1172,28 @@ namespace PIDashboard
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("pi_ecommerceModel", "FK_game_usuario", "game")]
+        public EntityCollection<game> game
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<game>("pi_ecommerceModel.FK_game_usuario", "game");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<game>("pi_ecommerceModel.FK_game_usuario", "game", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("pi_ecommerceModel", "FK_usuario_tipo", "usuario_tipo")]
         public usuario_tipo usuario_tipo
         {
@@ -1209,28 +1222,6 @@ namespace PIDashboard
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<usuario_tipo>("pi_ecommerceModel.FK_usuario_tipo", "usuario_tipo", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("pi_ecommerceModel", "FK_game_usuario", "game")]
-        public EntityCollection<game> game
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<game>("pi_ecommerceModel.FK_game_usuario", "game");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<game>("pi_ecommerceModel.FK_game_usuario", "game", value);
                 }
             }
         }

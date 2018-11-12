@@ -117,6 +117,12 @@ namespace PIDashboard
 
                         db.SaveChanges();
 
+                        if (usuario.ID == u.ID)
+                        {
+                            Session["Usuario"] = usuario;
+                            Session["TipoUsuario"] = usuario.usuario_tipo;
+                        }
+
                         lblSucesso.Text = "Os dados do usuário foram salvos com sucesso.";
                     }
                 }

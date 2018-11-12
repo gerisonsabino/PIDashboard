@@ -18,8 +18,9 @@ namespace PIDashboard
             else
             {
                 usuario u = (usuario)Session["Usuario"];
+                usuario_tipo t = (usuario_tipo)Session["TipoUsuario"];
 
-                lblUsuario.Text = u.Nome;
+                lblUsuario.Text = u.Nome + " (" + t.Descricao +")";
             }
         }
 
